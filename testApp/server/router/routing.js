@@ -26,7 +26,7 @@ router.post('/upload',(req,res)=>{
     })
 })
 
-router.post('/getData',(req,res)=>{
+router.get('/getData',(req,res)=>{
     service.getData(req.query.userName).then(data=>{
         res.send(data);
     }).catch(err=>{
@@ -34,7 +34,7 @@ router.post('/getData',(req,res)=>{
     })
 })
 
-router.post('/checkUser',(req,res)=>{
+router.get('/checkUser',(req,res)=>{
     service.checkUser(req.query.userName).then(data=>{
         res.send(data);
     }).catch(err=>{

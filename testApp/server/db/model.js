@@ -1,5 +1,5 @@
-const {pool} =require('pg');
-const pool = new pool({
+const {Pool} =require('pg');
+const pool = new Pool({
 
     user:'postgres',
     host:'localhost',

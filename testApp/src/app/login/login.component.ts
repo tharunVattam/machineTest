@@ -99,7 +99,7 @@ export class LoginComponent implements OnInit {
     }
   }
   signUp(){
-    if(this.signForm.valid && this.signing){
+    if(this.signForm.valid && !this.signing){
       if(this.signForm.value.password==this.signForm.value.repassword){
         this.signing=true;
         this.appService.signUp(this.signForm.value).subscribe(res=>{

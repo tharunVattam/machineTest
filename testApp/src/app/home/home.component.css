@@ -5,7 +5,7 @@
 .dataBox{
     display: grid;
     grid-template-columns: 16% 84%;
-    height: calc(100% -64px);
+    height: calc(100% - 64px);
     overflow: auto;
 }
 .lds-dual-ring2{
