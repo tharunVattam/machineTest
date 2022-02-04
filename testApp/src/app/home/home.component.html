@@ -1,0 +1,100 @@
+
+<mat-toolbar class='toolbar'>
+    <button mat-button>
+        <mat-icon>accont_circle</mat-icon><span style="padding: 0 5px;">{{userName}}</span>
+    </button>
+    <button mat-button style="margin-left: auto;" (click)='logout()'>
+        <mat-icon>logout</mat-icon>
+        <span style="padding: 0 5px;">Sign Out</span>
+    </button>
+
+</mat-toolbar>
+<div class="dataBox">
+    <div class="left">
+        <button mat-button [ngClass]='{"activeButton":activeItem=="file"}' (click)='toggle("file")'>
+            <mat-icon>file_upload</mat-icon> Upload File
+        </button>
+        <button mat-button [ngClass]='{"activeButton":activeItem=="dashboard"}' (click)='toggle("dashboard")'>
+            <mat-icon>dashboard</mat-icon> Dashboard
+        </button>
+
+    </div>
+    <div class="right">
+        <div *ngIf='activeItem=="file"'>
+            <div style="padding: 20px;">
+                <label>Upload you data file here</label>
+                <input type="file" accept=".json" (change)='uploadFile($event)'>
+
+            </div>
+            <div>
+                <div *ngIf='uploading' class="lds-dual-ring2"></div>
+                <span *ngIf='uploading' style="display: inline-block;position: relative;top: -15px;">File uploading.please wait</span>
+                <div *ngIf='errorMessage' style="padding: 0 20px; color: #f44336;">{{errorMessage}}</div>
+                <div *ngIf='successMessage' style="padding: 0 20px; color: green;">{{successMessage}}</div>
+
+            </div>
+
+        </div>
+        <div *ngIf='activeItem=="dashboard"'>
+            <div class="nodata" *ngIf='data.length==0'>You don't seem to have any data to show.Please upload data file.</div>
+            <div *ngIf='data.length>0'>
+                <div class="cards">
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-icon mat-card-avatar>people</mat-icon>
+                            <mat-card-title>{{users}}</mat-card-title>
+                            <mat-card-subtitle>Total users</mat-card-subtitle>
+                        </mat-card-header>
+                    </mat-card>
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-icon mat-card-avatar>analytics</mat-icon>
+                            <mat-card-title>{{data.length}}</mat-card-title>
+                            <mat-card-subtitle>Total entries</mat-card-subtitle>
+                        </mat-card-header>
+                    </mat-card>
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-icon mat-card-avatar>event</mat-icon>
+                            <mat-card-title>{{lastUpdated | date : 'MMM d, y, h:mm a'}}</mat-card-title>
+                            <mat-card-subtitle>Total entries</mat-card-subtitle>
+                        </mat-card-header>
+                    </mat-card>
+
+                </div>
+                <div class="tableData">
+                    <table mat-table [dataSource]='data'>
+                        <ng-container matColumnDef='userId'>
+                            <th mat-header-cell *matHeaderCellDef>UserId</th>
+                            <td mat-cell *matCellDef="let element" style="min-width: 60px;">{{element.userId}}</td>
+
+                        </ng-container>
+                        <ng-container matColumnDef='id'>
+                            <th mat-header-cell *matHeaderCellDef>Id</th>
+                            <td mat-cell *matCellDef="let element" style="min-width: 60px;">{{element.id}}</td>
+
+                        </ng-container>
+                        <ng-container matColumnDef='title'>
+                            <th mat-header-cell *matHeaderCellDef>Title</th>
+                            <td mat-cell *matCellDef="let element">{{element.title}}</td>
+
+                        </ng-container>
+                        <ng-container matColumnDef='body'>
+                            <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;">Body</th>
+                            <td mat-cell *matCellDef="let element" style="padding-left: 10px;">{{element.body}}</td>
+
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef='datacolumns'></tr>
+                        <tr mat-row *matRowDef='let row;columns:datacolumns;'></tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

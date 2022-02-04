@@ -1,0 +1,12 @@
+const express = require('express');
+const router = require('./router/routing');
+const bodyParser = require("body-parser");
+const cors = require('cors');
+const app = express();
+app.use(cors({credentials:true, origin: 'http://localhost:4200'}));
+let path = require('path');
+app.use(bodyParser.json({limit: '50mb'}));
+app.use('/',express.static(path.join(__dirname,'/public')));
+app.use('/',router);
+app.listen(3001);
+console.log('server is running at 3001');
